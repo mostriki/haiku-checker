@@ -4,7 +4,7 @@ export class Syllable {
     this.array = [line1, line2, line3];
   }
 
-  eRemoval(){
+  eRemoval() {
     let haiku = "";
     this.array.forEach((line) =>{
       let words = line.replace(/[^\w\s]|_/, "").split(" ");
@@ -15,17 +15,31 @@ export class Syllable {
           return word;
         }
       });
+      // console.log(words);
       haiku += words.join(" ");
     });
     return haiku;
   }
 
-  vowelCount(){
-    let result = [];
-    this.array.forEach((line) => {
-      result.push((line.match(/[aeiouy]{1,2}/gi,'')).length);
+  isHaiku() {
+    function vowelCount(x){
+      let result = [];
+      x.forEach((line) => {
+        result.push((line.match(/[aeiouy]{1,2}/gi,'')).length);
+      });
+      return result;
+    }
+
+    let solution = this.eRemoval();
+    solution = solution.split(' ');
+    debugger;
+      solution.forEach((element) =>{
+        if (element[0] === 5 && element[1] === 7 && element[2] === 5) {
+          return true;
+        } else {
+          return false;
+        }
     });
-    return result;
   }
 }
 

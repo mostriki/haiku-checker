@@ -16,4 +16,9 @@ describe('Syllable', function() {
     let input = new Syllable("The red foxes", "Jump over the fence.", "Likes to eat apples!");
     expect(input.eRemoval()).toEqual('The red foxesJump over the fencLikes to eat apples')
   });
+
+  it('will tell us if the input is a haiku', function() {
+    let solution = new Syllable("The redish foxes", "Jump high over the brown fence.", "Likes to eat apples!");
+    expect(solution.isHaiku()).toEqual(true)
+  });
 });
