@@ -14,6 +14,6 @@ describe('Syllable', function() {
 
   it('will remove slient e\'s at the end of any words in our string input', function() {
     let input = new Syllable("The red foxes", "Jump over the fence.", "Likes to eat apples!");
-    expect(input.eRemoval()).toEqual('Th red foxesJump over th fencLikes to eat apples')
+    expect(input.eRemoval()).toEqual('The red foxesJump over the fencLikes to eat apples')
   });
 });
