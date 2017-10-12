@@ -1,4 +1,4 @@
-var Calculator = require('./../js/haiku.js').calculatorModule;
+import { Syllable } from './../js/haiku.js';
 
 describe('Calculator', function() {
   it('will replace 3 with pong', function() {
