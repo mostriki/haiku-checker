@@ -6,6 +6,14 @@ export class Poem {
     this.line3 = line3;
   }
 
+  isHaiku(input) {
+    if (this.syllableChecker(this.line1, 5) &&
+        this.syllableChecker(this.line2, 7) &&
+        this.syllableChecker(this.line3, 5)) {
+      return true;
+    }
+  }
+
   vowelCounter(input) {
     return (input.match(/[aeiouy]{1,2}/gi,'')).length;
   }
@@ -13,81 +21,77 @@ export class Poem {
   eDestroyer(input){
     let words = input.replace(/[^\w\s]|_/, "").split(" ");
     words = words.map((word) => {
-      if (word.charAt(word.length - 1) === 'e' && word.length > 3) {
+      if (word.charAt(word.length - 1) === 'e' && word.length >= 3) {
         return word.substr(0, word.length - 1);
       } else {
         return word;
       }
     });
     return words.join(" ");
+
+    // let result;
+    //
+    // //remove punctuation
+    // input = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
+    // //split string into words
+    // input = input.split(' ');
+    // //check last letter, kill it if it's an e
+    // result = input.map(word => {
+    //   console.log(word);
+    //   if (word.substr(-1).toLowerCase() === 'e') {
+    //     return word.substr(word, word.length - 1);
+    //   } else {
+    //     return word;
+    //   }
+    // });
+    // //join and return
+    // return result.join(' ');
   }
 
-  fiveSyl(input) {
-    if (input.eDestroyer().vowelCounter() === 5) {
+  destroyAndCount(input) {
+    let result;
+
+    result = this.eDestroyer(input);
+    result = this.vowelCounter(result);
+
+    return result;
+  }
+
+  syllableChecker(input,  desiredCount) {
+    let result;
+
+    result = this.destroyAndCount(input);
+
+    if (result === desiredCount) {
       return true;
+    } else {
+      return false;
     }
   }
 
-  sevenSyl(input) {
-    if (input.eDestroyer().vowelCounter() === 7) {
-      return true;
-    }
-  }
+  // fiveSyl(input) {
+  //   let result;
+  //
+  //   result = this.destroyAndCount(input);
+  //   console.log(result);
+  //
+  //   if (result === 5) {
+  //     return true;
+  //   }
+  // }
+  //
+  // sevenSyl(input) {
+  //   let result;
+  //
+  //   result = this.destroyAndCount(input);
+  //
+  //   if (result === 7) {
+  //     return true;
+  //   }
+  // }
 
-  isHaiku(input) {
-    if (fiveSyl(this.line1) && sevenSyl(this.line2) && fiveSyl(this.line3)) {
-      return true;
-    }
-  }
+
 }
-
-
-// ********************************************************
-// export class Syllable {
-//   constructor(line1, line2, line3) {
-//     this.array = [line1, line2, line3];
-//   }
-//
-//   eRemoval() {
-//     let haiku = "";
-//     this.array.forEach((line) =>{
-//       let words = line.replace(/[^\w\s]|_/, "").split(" ");
-//       words = words.map((word) => {
-//         if (word.charAt(word.length - 1) === 'e' && word.length > 3) {
-//           return word.substr(0, word.length - 1);
-//         } else {
-//           return word;
-//         }
-//       });
-//       // console.log(words);
-//       haiku += words.join(" ");
-//     });
-//     return haiku;
-//   }
-//
-//   isHaiku() {
-//     function vowelCount(arr){
-//       let result = [];
-//       arr.forEach((line) => {
-//         result.push((line.match(/[aeiouy]{1,2}/gi,'')).length);
-//       });
-//       return result;
-//     }
-//
-//     let solution = this.eRemoval();
-//     solution = solution.split(' ');
-//     vowelCount(solution);
-//     solution.forEach((element) =>{
-//       if (element[0] === 5 && element[1] === 7 && element[2] === 5) {
-//         return true;
-//       } else {
-//         return false;
-//       }
-//     });
-//   }
-// }
-
-// ********************************************************
 
 
 // Really cool RegEx for reference
