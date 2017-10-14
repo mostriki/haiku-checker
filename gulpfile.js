@@ -23,7 +23,6 @@ var lib = require('bower-files')({
 
 var buildProduction = utilities.env.production;
 
-// dependencies
 gulp.task('concatInterface', function() {
   return gulp.src(['./js/pingpong-interface.js', './js/*-interface.js'])
     .pipe(concat('allConcat.js'))
@@ -73,12 +72,12 @@ gulp.task('bowerJS', function () {
 });
 
 gulp.task('bowerCSS', function () {
-  return gulp.src(lib.ext('css').files).concat(['css/*.css'])
+  return gulp.src(lib.ext('css').files)
     .pipe(concat('vendor.css'))
     .pipe(gulp.dest('./build/css'));
 });
 
-gulp.task('bower', ['bowerJS']);
+gulp.task('bower', ['bowerJS', 'bowerCSS']);
 
 gulp.task('serve', ['build'], function() {
   browserSync.init({
