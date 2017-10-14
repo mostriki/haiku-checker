@@ -24,19 +24,19 @@ var lib = require('bower-files')({
 var buildProduction = utilities.env.production;
 
 gulp.task('concatInterface', function() {
-  return gulp.src(['./js/pingpong-interface.js', './js/*-interface.js'])
+  return gulp.src(['./js/*-interface.js'])
     .pipe(concat('allConcat.js'))
     .pipe(gulp.dest('./tmp'));
 });
 
 gulp.task('jsBrowserify', ['concatInterface'], function() {
-  return browserify({ entries: ['./tmp/allConcat.js'] })
+  return browserify({ entries: ['./tmp/allConcat.js']})
     .transform(babelify.configure({
       presets: ["es2015"]
     }))
     .bundle()
     .pipe(source('app.js'))
-    .pipe(gulp.dest('./build/js'));
+    .pipe(gulp.dest('./build/js'))
 });
 
 gulp.task("minifyScripts", ["jsBrowserify"], function() {
@@ -72,14 +72,14 @@ gulp.task('bowerJS', function () {
 });
 
 gulp.task('bowerCSS', function () {
-  return gulp.src(lib.ext('css').files)
+  return gulp.src((lib.ext('css').files).concat(['css/*.css']))
     .pipe(concat('vendor.css'))
     .pipe(gulp.dest('./build/css'));
 });
 
 gulp.task('bower', ['bowerJS', 'bowerCSS']);
 
-gulp.task('serve', ['build'], function() {
+gulp.task('serve', function() {
   browserSync.init({
     server: {
       baseDir: "./",
